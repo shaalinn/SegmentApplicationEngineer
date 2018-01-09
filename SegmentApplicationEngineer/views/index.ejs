@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/dropdowncss.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/productSectionStyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body ng-app="indexBody" ng-controller="indexBody" style="background-color: #f7f7f7">
+  <div class="container">
+    <div class="page-header">
+      <table>
+        <tbody>
+        <tr>
+          <td width="100%">
+            Hi!<div class="dropdown"><a class="dropbtn" href="#" >{{username}}<a class="dropbtn" href="" ><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+              <div class="dropdown-content">
+                <!--<a href="/profile">Profile</a>-->
+                <a href="/signout">Sign Out!</a>
+              </div>
+            </div>  <!--<a href="/postAdvertisement">Sell</a>-->
+          </td>
+          <td >
+            <!--<a href="/shoppingCart" ><i class="fa fa-shopping-cart" style="font-size: 18px;color:grey;"></i></a>-->
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <table>
+        <tbody>
+        <tr>
+          <td>
+             <!-- <a href="/">
+            <img src="https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/ebay-128.png">
+                  </a>-->
+          </td>
+          <td width="100%">
+            <!--<input class="form-control" type="text"  placeholder="Search..." ng-model="searchQ">-->
+          </td>
+          <td>
+            <!--<button class="btn btn-primary" ng-click="search()">Search</button>-->
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="container">
+    <!--<div class="well well-sm">
+      <strong>Display</strong>
+      <div class="btn-group">
+        <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                  class="glyphicon glyphicon-th"></span>Grid</a>
+      </div>
+    </div>-->
+    <!--<div id="products" class="row list-group">
+
+      <div class="item  col-xs-4 col-lg-4" ng-repeat="x in products">
+        <div class="thumbnail">
+          <img class="group list-group-image" src="https://onepagelove.com/wp-content/uploads/2014/12/ph-400x211.jpg" alt="" />
+          <div class="caption">
+            <a href="/product/{{x.p_id}}">
+              <h4 class="group inner list-group-item-heading">
+                {{ x.p_name }}</h4>
+            </a>
+            <p class="group inner list-group-item-text">
+              For {{ x.ausel }}</p>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <p class="lead">
+                  ${{ x.price }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>-->
+    <div class="row" ng-show="username=='finance'">
+      <h2>Monthly Overage Bill</h2>
+      <p>Following Bills are required to be approved by Finance Admin</p>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Customer Id</th>
+          <th>Customer Name</th>
+          <th>Billing Address</th>
+          <th>Billing Email</th>
+          <th>Month</th>
+          <th>Year</th>
+          <th>Month Limit</th>
+          <th>Overage Unites</th>
+          <th>Average Unit Price</th>
+          <th>Overage Amount</th>
+          <th>Start Month</th>
+          <th>Start Year</th>
+          <th>Approve</th>
+          <th>Waive</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="x in finBill">
+          <td>{{ x.CustomerId }}</td>
+          <td>{{ x.name }}</td>
+          <td>{{ x.billingaddress }}</td>
+          <td>{{ x.billingemail }}</td>
+          <td>{{ x.month }}</td>
+          <td>{{ x.year }}</td>
+          <td>{{ x.monthlimit }}</td>
+          <td>{{ x.overageUnits }}</td>
+          <td>{{ x.overageUnitPrice }}</td>
+          <td>{{ x.overageAmounts }}</td>
+          <td>{{ x.startMonth }}</td>
+          <td>{{ x.startYear }}</td>
+          <td> <button type="button" class="btn btn-success btn-md" ng-click="Approve('fin',x.billId)">Approve</button> </td>
+          <td> <button type="button" class="btn btn-primary btn-md" ng-click="Waive(x.billId)">Waive</button> </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row" ng-show="username=='finance'">
+      <h2>Monthly Overage Bill Approved by Sales Dept</h2>
+      <p>Following Bills are approved by Sales Department and invoices are ready to be sent out</p>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Customer Id</th>
+          <th>Customer Name</th>
+          <th>Billing Address</th>
+          <th>Billing Email</th>
+          <th>Month</th>
+          <th>Year</th>
+          <th>Month Limit</th>
+          <th>Overage Unites</th>
+          <th>Average Unit Price</th>
+          <th>Overage Amount</th>
+          <th>Start Month</th>
+          <th>Start Year</th>
+          <th>Send Invoice</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="x in saleBill">
+          <td>{{ x.CustomerId }}</td>
+          <td>{{ x.name }}</td>
+          <td>{{ x.billingaddress }}</td>
+          <td>{{ x.billingemail }}</td>
+          <td>{{ x.month }}</td>
+          <td>{{ x.year }}</td>
+          <td>{{ x.monthlimit }}</td>
+          <td>{{ x.overageUnits }}</td>
+          <td>{{ x.overageUnitPrice }}</td>
+          <td>{{ x.overageAmounts }}</td>
+          <td>{{ x.startMonth }}</td>
+          <td>{{ x.startYear }}</td>
+          <td> <button type="button" class="btn btn-success btn-md" ng-click="sendBill(x)">Send Invoice</button> </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row" ng-show="username=='sales'">
+      <h2>This table will be shown to sales personal</h2>
+      <p>Following Bills are approved by Finance Department and needed to be approved by sales person</p>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Customer Id</th>
+          <th>Customer Name</th>
+          <th>Billing Address</th>
+          <th>Billing Email</th>
+          <th>Month</th>
+          <th>Year</th>
+          <th>Month Limit</th>
+          <th>Overage Unites</th>
+          <th>Average Unit Price</th>
+          <th>Overage Amount</th>
+          <th>Start Month</th>
+          <th>Start Year</th>
+          <th>Send Invoice</th>
+          <th>Waive</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="x in saleBill">
+          <td>{{ x.CustomerId }}</td>
+          <td>{{ x.name }}</td>
+          <td>{{ x.billingaddress }}</td>
+          <td>{{ x.billingemail }}</td>
+          <td>{{ x.month }}</td>
+          <td>{{ x.year }}</td>
+          <td>{{ x.monthlimit }}</td>
+          <td>{{ x.overageUnits }}</td>
+          <td>{{ x.overageUnitPrice }}</td>
+          <td>{{ x.overageAmounts }}</td>
+          <td>{{ x.startMonth }}</td>
+          <td>{{ x.startYear }}</td>
+          <td> <button type="button" class="btn btn-success btn-md" ng-click="Approve('sales',x.billId)">Approve</button> </td>
+          <td> <button type="button" class="btn btn-primary btn-md" ng-click="Waive(x.billId)">Waive</button> </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  </body>
+  <script src="javascripts/index.js" type="text/javascript"></script>
+<script>
+  $(document).ready(function() {
+    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
+    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+  });
+</script>
+</html>

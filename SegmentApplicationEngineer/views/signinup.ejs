@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <title>Sign In | Register</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body style="background-color: #f7f7f7">
+<div class="row">
+    <table>
+        <tbody>
+        <tr>
+            <td width="50%"></td>
+            <td  class="alert alert-success" >
+                    <strong>Internal Billing</strong>
+            </td>
+            <td width="50%"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container" ng-app="signinup" ng-controller="signs">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-login">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <i class="fa fa-arrow-circle-o-right" style="font-size:18px;color:grey"></i><a href="#" class="active" id="login-form-link">Login</a>
+                        </div>
+                       <!-- <div class="col-xs-6">
+                            <i class="fa fa-plus-circle" style="font-size:18px;color:grey"> </i><a href="#" id="register-form-link">Register</a>
+                        </div>-->
+                    </div>
+                    <hr>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form name="logFrom" id="login-form" ng-submit="login()" role="form" style="display: block;">
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" ng-model="username" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="pwd" class="form-control" placeholder="Password" ng-model="password" required>
+                                </div>
+                                <div class="form-group" ng-show="rocker">
+                                    <span style="color: red" >Combination of Username and Password is wrong!</span>
+                                </div>
+                                <!--<div class="form-group text-center">
+                                    <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                    <label for="remember"> Remember Me</label>
+                                </div>-->
+                                <div class="form-group" ng-show="!logFrom.username.$invalid && !logFrom.password.$invalid">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-primary btn-block" value="Log In">
+                                        </div>
+                                    </div>
+                                </div>
+                               <!-- <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="text-center">
+                                                <a href="#" tabindex="5" class="forgot-password">Forgot Password?</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>-->
+                            </form>
+                            <form name="regFrom" id="register-form" role="form" style="display: none;" ng-submit="register()">
+                                <div class="form-group">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td width="500">
+                                                <input type="text" name="ln" id="ln" tabindex="1" class="form-control" placeholder="First Name" value="" ng-model="fn" required>
+                                            </td>
+
+                                            <td width="500">
+                                                <input type="text" name="fn" id="fn" tabindex="1" class="form-control" placeholder="Last Name" value="" ng-model="ln" required>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="form-group" ng-show="regFrom.ln.$touched && regFrom.ln.$invalid">
+                                    <span style="color: red">Enter First Name</span>
+                                </div>
+                                <div class="form-group" ng-show="regFrom.fn.$touched && regFrom.fn.$invalid">
+                                    <span style="color: red">Enter Last Name</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" ng-model="username" ng-change="checkUser()" required >
+                                </div>
+                                <div class="form-group" ng-show="rocker2">
+                                    <span style="color: red;">Username Unavailable</span>
+                                </div>
+                                <div class="form-group" ng-show="regFrom.username.$touched && regFrom.username.$invalid">
+                                    <span style="color: red">Enter Username</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="" ng-model="email" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" required>
+                                </div>
+                                <div class="form-group" ng-show="regFrom.email.$touched && regFrom.email.$invalid && regFrom.email.$error.pattern">
+                                    <span style="color: red;">Invalid email address</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" ng-model="password" required>
+                                </div>
+                                <div class="form-group" ng-show="regFrom.password.$touched && regFrom.password.$invalid">
+                                    <span style="color: red">Enter Password</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="confirmpassword" id="confirm_password" tabindex="2" class="form-control" placeholder="Confirm Password" ng-model="cpassword" ng-change="check()" required>
+                                </div>
+                                <div class="form-group" ng-show="regFrom.confirmpassword.$touched && regFrom.confirmpassword.$invalid">
+                                    <span style="color: red">Enter Confirm Password</span>
+                                </div>
+                                <div class="form-group" ng-show="rocker5">
+                                    <span style="color: red;">Passwords do not match!</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="number" name="phno" id="phno" tabindex="2" class="form-control" placeholder="Phone Number" ng-model="phno" required>
+                                </div>
+                                <div class="form-group" ng-show="regFrom.phno.$touched && regFrom.phno.$invalid">
+                                    <span style="color: red">Enter Phone Number</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="date" name="bdate" id="bdate" tabindex="2" class="form-control" placeholder="Birth Date" ng-model="bdate" required>
+                                </div>
+                                <div class="form-group" ng-show="regFrom.bdate.$touched && regFrom.bdate.$invalid">
+                                    <span style="color: red">Enter Birth Date</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="address1" id="address1" tabindex="2" class="form-control" placeholder="Street" ng-model="addr" required>
+                                </div>
+                                <div class="form-group" ng-show="regFrom.address1.$touched && regFrom.address1.$invalid">
+                                    <span style="color: red">Enter Street</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="city" id="city" tabindex="2" class="form-control" placeholder="City" ng-model="city" required>
+                                </div>
+                                <div class="form-group" ng-show="regFrom.city.$touched && regFrom.city.$invalid">
+                                    <span style="color: red">Enter City</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="state" name="state" id="bdate" tabindex="2" class="form-control" placeholder="State" ng-model="state" required>
+                                </div>
+                                <div class="form-group" ng-show="regFrom.state.$touched && regFrom.state.$invalid">
+                                    <span style="color: red">Enter State</span>
+                                </div>
+                                <div class="form-group" ng-show="rocker3">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="btn btn-success btn-block" value="Register Now">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p ng-model="msg"></p>
+</div>
+<script>
+    $(function() {
+
+        $('#login-form-link').click(function(e) {
+            $("#login-form").delay(100).fadeIn(100);
+            $("#register-form").fadeOut(100);
+            $('#register-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+        });
+        $('#register-form-link').click(function(e) {
+            $("#register-form").delay(100).fadeIn(100);
+            $("#login-form").fadeOut(100);
+            $('#login-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+        });
+
+    });
+
+
+</script>
+<script src="javascripts/signinup.js" type="text/javascript"></script>
+</body>
+</html>
